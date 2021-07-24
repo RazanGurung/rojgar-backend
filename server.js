@@ -19,4 +19,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(userrouter);
 app.use(jobpostrouter);
 
+app.get('/',function(req,res){
+    res.send("Welcome to Rojgar.com")
+})
 app.listen(8000);
