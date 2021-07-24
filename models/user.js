@@ -33,6 +33,9 @@ const User = mongoose.model('User',{
             default:"street"
         }
     },
+    payrate:{
+        type : String
+    },
     gender:{
         type : String,
         reduired : true,

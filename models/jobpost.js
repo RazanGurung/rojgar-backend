@@ -19,6 +19,10 @@ const JobPost = mongoose.model('JobPost',{
     workdescription: {
         type : String,
         reduired : true,
+    },
+    status : {
+        type : String,
+        default : "ongoing"
     }
 });
 module.exports = JobPost; 

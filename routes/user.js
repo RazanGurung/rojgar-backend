@@ -67,6 +67,26 @@ router.post("/user/login",function (req,res){
     })
 });
 
+router.get("/show/user",function(req,res){    
+    User.find({usertype:"user"})
+    .then(function(result){
+        res.status(200).json({success:true,data:result});
+    })
+    .catch(function(err){
+        res.status(401).json({message : err,success:false})
+    })
+});
+
+router.get("/show/professional",function(req,res){    
+    User.find({usertype:"professional"})
+    .then(function(result){
+        res.status(200).json({success:true,data:result});
+    })
+    .catch(function(err){
+        res.status(401).json({message : err,success:false})
+    })
+});
+
 router.get("/user/account/:id",function(req,res){    
     const id = req.params.id;
     User.findOne({_id:id})
@@ -88,6 +108,7 @@ router.put("/general/update/:id",function(req,res){
     const country = req.body.country;
     const city = req.body.city;
     const street = req.body.street;
+    const payrate = req.body.payrate;
 
     var address = {country:country, city:city, street:street}
     User.updateOne({_id:id},
@@ -96,6 +117,7 @@ router.put("/general/update/:id",function(req,res){
         phone:phone,
         dob:dob,
         gender:gender,
+        payrate:payrate,
         $set : {address:address}
     }).then(function(data){
         res.status(200).json({message : "General Information Updated",success:true})
@@ -207,5 +229,30 @@ router.put("/user/update/certificate/:id",upload.single('certificateimg'),functi
         res.status(500).json({message:"Failed to Update Profile Picture", success : false})
     })
 })
+
+router.delete("/user/delete/:id",function(req,res){
+    const id = req.params.id;
+    User.findOne({_id:id}).then(function(data){
+        var image = data.profile
+        if(image != "noImage.jpg"){
+            fs.unlinkSync(image, (err) => { 
+                if(err){
+                    res.status(400).json({message : "error deleting file", success:false})
+                    return
+                }
+            })
+        }
+    }) .catch(function(err){
+        res.status(400).json({message : "file not found", success:false})
+    })
+    User.deleteOne({_id:id})
+    .then(function(result){
+        res.status(200).json({message : "Accouted Deleted Successfully",success:true})
+    })
+    .catch(function(err){
+        res.status(400).json({message : "error deleting account", success:false})
+    })  
+
+});
 
 module.exports = router
