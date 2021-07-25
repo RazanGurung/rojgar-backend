@@ -12,7 +12,7 @@ env.config({
     path:"./.env"
 })
 
-const port = process.env.port || 8000
+const PORT = process.env.PORT || 8000
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -27,4 +27,4 @@ app.use(jobpostrouter);
 app.get('/',function(req,res){
     res.send("Welcome to Rojgar.com")
 })
-app.listen(port);
+app.listen(PORT);
