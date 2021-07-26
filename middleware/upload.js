@@ -1,35 +1,18 @@
-const multer = require('multer');
+const multer = require("multer");
+const path = require("path");
 
-const storage = multer.diskStorage({
-    destination :function(req,file,cb) {
-        cb(null,'./images')
+module.exports = multer({
+    storage: multer.diskStorage({
+        filename: function(req, file, cb) {
+            cb(null, Date.now() + file.originalname);
+        }
+    }),
+    fileFilter:(req, file, cb) =>{
+        let ext = path.extname(file.originalname);
+        if(ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png"){
+            cb(new Error("File type is not supported"), false);
+            return;
+        }
+        cb(null, true);
     },
-    filename:function(req,file,cb){
-        cb(null,Date.now() + "_" + file.originalname)
-    }
 });
-
-const fileFilter = function(res,file,cb){
-    if(file.mimetype == 'image/jpeg'|| file.mimetype == 'image/png'){
-        cb(null,true);
-    }
-    else{
-        cb(null,false)
-    }
-}
-
-const fileSize = function(res,file,cb){
-    if(file.size <= 7340032){
-        cb(null,true)
-    }else{
-        cb(null,false)
-    }
-}
-
-const upload = multer({ 
-       storage : storage,
-       fileFilter : fileFilter,
-       size : fileSize
-});
-
-module.exports = upload

@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const {check, validationResult} = require('express-validator');
 const router = express.Router();
 const upload = require('../middleware/upload');
+const cloudinary = require('../middleware/cloudinary');
 const { Certificate } = require('crypto');
 
 router.post("/user/register",[
@@ -178,56 +179,63 @@ router.put("/description/update/:id",function(req,res){
     })
 });
 
-router.put("/user/update/profile/:id",upload.single('profile'),function(req,res){
-    // if(req.file == undefined){
-    //     return res.status(400).json({message : "invalid file", success:false})
-    // }
+router.put("/user/update/profile/:id",upload.single('profile'),async(req,res)=>{
     const id = req.params.id;
-    User.findOne({_id:id}).then(function(data){
-        var image = data.profile
-        if(image != "noImage.jpg"){
-            fs.unlinkSync(image, (err) => { 
-                if(err){
-                    res.status(400).json({message : "error deleting file", success:false})
-                    return
-                }
-            })
-        }
-    }) .catch(function(err){
-        res.status(400).json({message : "file not found", success:false})
-    })
-    User.updateOne({_id:id},{profile : req.file.path}).then(function(result){
-        res.status(200).json({message:"Profile update successfully",success:true})
-    }).catch(function(err){
-        res.status(500).json({message:"Failed to Update Profile Picture", success : false})
-    })
-})
+    // User.findOne({_id:id}).then(function(data){
+    //     var image = data.profile
+    //     if(image != "noImage.jpg"){
+    //         fs.unlinkSync(image, (err) => { 
+    //             if(err){
+    //                 res.status(400).json({message : "error deleting file", success:false})
+    //                 return
+    //             }
+    //         })
+    //     }
+    // }) .catch(function(err){
+    //     res.status(400).json({message : "file not found", success:false})
+    // })
+    try{
+        const result = await cloudinary.uploader.upload(req.file.path);
+        User.updateOne({_id:id},{profile : result.secure_url}).then(function(result){
+            res.status(200).json({message:"Profile update successfully",success:true})
+        }).catch(function(err){
+            res.status(500).json({message:"Failed to Update Profile Picture", success : false})
+        });
+    }catch(err){
+        console.log(err)
+    }
+});
 
-router.put("/user/update/certificate/:id",upload.single('certificateimg'),function(req,res){
+router.put("/user/update/certificate/:id",upload.single('certificateimg'),async(req,res)=>{
     // if(req.file == undefined){
     //     return res.status(400).json({message : "invalid file", success:false})
     // }
     const id = req.params.id;
-    User.findOne({_id:id}).then(function(data){
-        var image = data.certificates.certificateimg
-        if(image != "noImage.jpg"){
-            fs.unlinkSync(image, (err) => { 
-                if(err){
-                    res.status(400).json({message : "error deleting file", success:false})
-                    return
-                }
-            })
-        }
-    }) .catch(function(err){
-        res.status(400).json({message : "file not found", success:false})
-    })
-    const title = req.body.title;
-    const data = {certificateimg:req.file.path,title:title}
-    User.updateOne({_id:id},{$set : {certificates : data}}).then(function(result){
-        res.status(200).json({message:"Profile update successfully",success:true})
-    }).catch(function(err){
-        res.status(500).json({message:"Failed to Update Profile Picture", success : false})
-    })
+    // User.findOne({_id:id}).then(function(data){
+    //     var image = data.certificates.certificateimg
+    //     if(image != "noImage.jpg"){
+    //         fs.unlinkSync(image, (err) => { 
+    //             if(err){
+    //                 res.status(400).json({message : "error deleting file", success:false})
+    //                 return
+    //             }
+    //         })
+    //     }
+    // }) .catch(function(err){
+    //     res.status(400).json({message : "file not found", success:false})
+    // })
+    const result = await cloudinary.uploader.upload(req.file.path);
+    try{
+        const title = req.body.title;
+        const data = {certificateimg:result.secure_url,title:title}
+        User.updateOne({_id:id},{$set : {certificates : data}}).then(function(result){
+            res.status(200).json({message:"Profile update successfully",success:true})
+        }).catch(function(err){
+            res.status(500).json({message:"Failed to Update Profile Picture", success : false})
+        })
+    }catch(err){
+        console.log(err);
+    }
 })
 
 router.delete("/user/delete/:id",function(req,res){

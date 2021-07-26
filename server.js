@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const database = require("./database/database")
+const connectDB = require("./database/database")
 const path = require('path');
 const env = require ("dotenv");
 const public = path.join(__dirname,'')
@@ -11,6 +11,8 @@ const cors = require('cors');
 env.config({
     path:"./.env"
 })
+
+connectDB();
 
 const PORT = process.env.PORT || 8000
 const app = express();
