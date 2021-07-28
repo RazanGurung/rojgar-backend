@@ -99,6 +99,29 @@ router.get("/user/account/:id",function(req,res){
     })
 });
 
+router.put("/user/update/password/:id",function(req,res){
+    const id = req.params.id;
+    const {oldpassword,newpassword} = req.body;
+    User.findOne({_id:id}).then(function(data){
+        bcrypt.compare(oldpassword,data.password, function(err,result){
+            if(result === false){
+                return res.status(403).json({message : "Password Didnt Matched",success:false})
+            }else{
+                bcrypt.hash(newpassword,10,function(err,hash){
+                    User.updateOne({ _id:id},
+                        {password : hash}).then(function(result){
+                        res.status(200).json({message:"Password Updated Successfully", success:true})
+                    }).catch(function(err){
+                        res.status(500).json({message:"Password Update Failed",success:false})
+                    })
+                })
+            }
+        })
+    }).catch(function(err){
+        res.status(500).json({message:"Password Update Failed", success:false})
+    })
+});
+
 router.put("/general/update/:id",function(req,res){
     const id = req.params.id;
     const firstname = req.body.firstname;

@@ -22,6 +22,8 @@ const connectDB = async () => {
 
   );
 
+
+
   console.log(`MongoDB connected to : ${conn.connection.host}`);
 
 };
