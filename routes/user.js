@@ -263,19 +263,19 @@ router.put("/user/update/certificate/:id",upload.single('certificateimg'),async(
 
 router.delete("/user/delete/:id",function(req,res){
     const id = req.params.id;
-    User.findOne({_id:id}).then(function(data){
-        var image = data.profile
-        if(image != "noImage.jpg"){
-            fs.unlinkSync(image, (err) => { 
-                if(err){
-                    res.status(400).json({message : "error deleting file", success:false})
-                    return
-                }
-            })
-        }
-    }) .catch(function(err){
-        res.status(400).json({message : "file not found", success:false})
-    })
+    // User.findOne({_id:id}).then(function(data){
+    //     var image = data.profile
+    //     if(image != "noImage.jpg"){
+    //         fs.unlinkSync(image, (err) => { 
+    //             if(err){
+    //                 res.status(400).json({message : "error deleting file", success:false})
+    //                 return
+    //             }
+    //         })
+    //     }
+    // }) .catch(function(err){
+    //     res.status(400).json({message : "file not found", success:false})
+    // })
     User.deleteOne({_id:id})
     .then(function(result){
         res.status(200).json({message : "Accouted Deleted Successfully",success:true})
