@@ -8,12 +8,16 @@ router.post("/job/post/:id",function(req,res){
     const worktype = req.body.worktype;
     const proficiency = req.body.proficiency;
     const workdescription = req.body.workdescription;
+    const esttime = req.body.esttime;
+    const paytype = req.body.paytype;
     const jobpost = new JobPost({
         userid:id,
         worktitle:worktitle,
         worktype:worktype,
         proficiency:proficiency,
         workdescription:workdescription,
+        esttime:esttime,
+        paytype:paytype,
     });
     jobpost.save()
     .then(function(result){
@@ -62,11 +66,15 @@ router.put("/post/update/:id",function(req,res){
     const worktype = req.body.worktype;
     const proficiency = req.body.proficiency;
     const workdescription = req.body.workdescription;
+    const esttime = req.body.esttime;
+    const paytype = req.body.paytype;
     JobPost.updateOne({_id:id},
     {   worktitle:worktitle,
         worktype:worktype,
         proficiency:proficiency,
-        workdescription:workdescription
+        workdescription:workdescription,
+        esttime:esttime,
+        paytype:paytype,
     }).then(function(data){
         res.status(200).json({message : "Job Post Updated",success:true})
     }).catch(function(err){

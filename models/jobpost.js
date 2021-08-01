@@ -20,6 +20,14 @@ const JobPost = mongoose.model('JobPost',{
         type : String,
         reduired : true,
     },
+    esttime : {
+        type : String,
+        reduired : true,
+    },
+    paytype: {
+        type : String,
+        reduired : true,
+    },
     status : {
         type : String,
         default : "ongoing"
