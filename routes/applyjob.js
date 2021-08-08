@@ -6,10 +6,18 @@ router.post("/apply/job",function(req,res){
     const userid = req.body.userid;
     const workid = req.body.workid;
     const application = req.body.application;
+    const profile = req.body.application;
+    const username = req.body.application;
+    const address = req.body.application;
+    const profession = req.body.application;
     const applyjob = new ApplyJob({
         userid:userid,
         workid:workid,
         application:application,
+        profile:profile,
+        username:username,
+        address:address,
+        profession:profession
     });
     applyjob.save()
     .then(function(result){

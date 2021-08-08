@@ -12,6 +12,22 @@ const JobApply = mongoose.model('JobApply',{
     application:{
         type:String,
         required:true
+    },
+    profile:{
+        type:String,
+        required:true
+    },
+    username:{
+        type : String,
+        required:true
+    },
+    address:{
+        type : String,
+        required:true
+    },
+    profession:{
+        type : String,
+        required:true
     }
 });
 module.exports = JobApply; 
