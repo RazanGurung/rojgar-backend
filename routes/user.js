@@ -41,8 +41,8 @@ router.post("/user/register",[
                     });
                     user.save()
                     .then(function(result){
-                        nodemailer.sendConfirmationEmail(firstname,email,token);
                         res.status(201).json({message : "User Registration Successful",success:true})
+                        nodemailer.sendConfirmationEmail(firstname,email,token);
                     })
                     .catch(function(err){
                         res.status(500).json({message : err,success:false})
