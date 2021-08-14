@@ -7,7 +7,8 @@ const {check, validationResult} = require('express-validator');
 const router = express.Router();
 const upload = require('../middleware/upload');
 const cloudinary = require('../middleware/cloudinary');
-const { Certificate } = require('crypto');
+const userconfig = require("../config/user.config");
+const nodemailer = require("../config/nodemailer.config");
 
 router.post("/user/register",[
     check("email","Invalid Email Address").isEmail().notEmpty(),
@@ -18,6 +19,7 @@ router.post("/user/register",[
             
            res.status(400).json(errors.array())
         }else{
+            const token = jwt.sign({ email: req.body.email }, userconfig.secret);
             const firstname = req.body.firstname;
             const lastname = req.body.lastname;
             const email = req.body.email;
@@ -25,25 +27,28 @@ router.post("/user/register",[
             const gender = req.body.gender;
             const usertype = req.body.usertype;
             const password = req.body.password;
-            bcrypt.hash(password,10,function(err,hash){
-                const user = new User({
-                    firstname:firstname,
-                    lastname:lastname,
-                    email:email,
-                    phone:phone,
-                    usertype:usertype,
-                    gender:gender,
-                    password:hash
-                });
-                user.save()
-                .then(function(result){
-                    res.status(201).json({message : "User Registration Successful",success:true})
+            bcrypt.genSalt(10, (err,salt)=>{
+                bcrypt.hash(password,salt,function(err,hash){
+                    const user = new User({
+                        firstname:firstname,
+                        lastname:lastname,
+                        email:email,
+                        phone:phone,
+                        usertype:usertype,
+                        gender:gender,
+                        confirmation:token,
+                        password:hash
+                    });
+                    user.save()
+                    .then(function(result){
+                        nodemailer.sendConfirmationEmail(firstname,email,token);
+                        res.status(201).json({message : "User Registration Successful",success:true})
+                    })
+                    .catch(function(err){
+                        res.status(500).json({message : err,success:false})
+                    });
                 })
-                .catch(function(err){
-                    res.status(500).json({message : err,success:false})
-                });
             })
-            
         }
 });
 

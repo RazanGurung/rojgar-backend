@@ -134,6 +134,14 @@ const User = mongoose.model('User',{
         title : {
             type : String
         }
+    },
+    confirmation:{
+        type:String,
+        required:true
+    },
+    emailverified:{
+        type:Boolean,
+        default:false
     }
 });
 module.exports = User; 
