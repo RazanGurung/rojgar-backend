@@ -73,6 +73,15 @@ router.post("/user/login",function (req,res){
     })
 });
 
+router.put("/user/confirmation/:token",function(req,res){
+    const token = req.params.token;
+    User.updateOne({confirmation:token},{emailverified:true}).then(function(result){
+        res.status(200).json({message:"verified email"})
+    }).catch(function(err){
+        res.status(500).json({message:"email verification unsuccessful"})
+    })
+})
+
 router.get("/show/user",function(req,res){    
     User.find({usertype:"user"})
     .then(function(result){
