@@ -28,6 +28,10 @@ const JobApply = mongoose.model('JobApply',{
     profession:{
         type : String,
         required:true
+    },
+    status:{
+        type:String,
+        default:"ongoing"
     }
 });
 module.exports = JobApply; 

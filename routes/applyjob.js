@@ -46,4 +46,16 @@ router.get("/view/application/:id",function(req,res){
     })
 });
 
+router.put("/applicaiton/status/:id",function(req,res){
+    const id = req.params.id;
+    const status = req.body.status;
+    ApplyJob.findOneAndUpdate({_id:id},{status:status})
+    .then(function(result){
+        res.status(200).json({message:"successful"});
+    })
+    .catch(function(err){
+        res.status(401).json({message : err,success:false})
+    })
+})
+
 module.exports = router
