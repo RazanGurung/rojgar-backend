@@ -46,6 +46,18 @@ router.get("/requested/professional/:id",function(req,res){
     })
 })
 
+router.put("/update/status/:id",function(req,res){
+    const id = req.params.id;
+    const status = req.body.status;
+    JobRequest.findOneAndUpdate({_id:id},{status:status})
+    .then(function(result){
+        res.status(200).json({message:"successful"});
+    })
+    .catch(function(err){
+        res.status(401).json({message : err,success:false})
+    })
+})
+
 router.get("/delete/request/:id",function(req,res){
     const id = req.params.id;
     JobRequest.deleteOne({_id:id}).then(res=>{
