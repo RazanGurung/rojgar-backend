@@ -26,19 +26,23 @@ router.post("/job/request/:id",function(req,res){
 
 router.get("/job/invite/:id",function(req,res){
     const id = req.params.id;
-    JobRequest.find({professionalid:id}).then(res=>{
-        res.status(200).json({data:res})
-    }).catch(err=>{
-        res.status(500).json({message:"error populationg invite"})
+    JobRequest.find({professionalid:id})
+    .then(function(result){
+        res.status(200).json({data:result});
+    })
+    .catch(function(err){
+        res.status(401).json({message : err,success:false})
     })
 })
 
 router.get("/requested/professional/:id",function(req,res){
     const id = req.params.id;
-    JobRequest.find({userid:id}).then(res=>{
-        res.status(200).json({data:res})
-    }).catch(err=>{
-        res.status(500).json({message:"error populationg request"})
+    JobRequest.find({userid:id})
+    .then(function(result){
+        res.status(200).json({data:result});
+    })
+    .catch(function(err){
+        res.status(401).json({message : err,success:false})
     })
 })
 
