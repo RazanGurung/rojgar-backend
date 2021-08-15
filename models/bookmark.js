@@ -1,27 +1,32 @@
 const mongoose = require('mongoose');
 const { stringify } = require('querystring');
-const JobRequest = mongoose.model('JobRequest',{
+const Bookmark = mongoose.model('Bookmark',{
     userid:{
-        type:String
-    },
-    professionalid:{
         type:String
     },
     worktitle : {
         type : String,
         reduired : true
     },
+    worktype : {
+        type : String,
+        reduired : true
+    },
+    proficiency : {
+        type : String,
+        reduired : true,
+    },
     workdescription: {
+        type : String,
+        reduired : true,
+    },
+    esttime : {
         type : String,
         reduired : true,
     },
     paytype: {
         type : String,
         reduired : true,
-    },
-    status : {
-        type : String,
-        default : "ongoing"
     }
 });
-module.exports = JobRequest; 
+module.exports = Bookmark; 
