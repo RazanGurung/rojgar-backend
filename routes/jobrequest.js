@@ -24,5 +24,32 @@ router.post("/job/request/:id",function(req,res){
     });
 });
 
+router.get("/job/invite/:id",function(req,res){
+    const id = req.params.id;
+    JobRequest.find({professionalid:id}).then(res=>{
+        res.status(200).json({data:res})
+    }).catch(err=>{
+        res.status(500).json({message:"error populationg invite"})
+    })
+})
+
+router.get("/requested/professional/:id",function(req,res){
+    const id = req.params.id;
+    JobRequest.find({userid:id}).then(res=>{
+        res.status(200).json({data:res})
+    }).catch(err=>{
+        res.status(500).json({message:"error populationg request"})
+    })
+})
+
+router.get("/delete/request/:id",function(req,res){
+    const id = req.params.id;
+    JobRequest.deleteOne({_id:id}).then(res=>{
+        res.status(200).json({message:"Deleted Successfully"});
+    }).catch(err=>{
+        res.status(500).json({message:"error deleting request"})
+    })
+})
+
 
 module.exports = router
