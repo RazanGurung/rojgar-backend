@@ -27,3 +27,17 @@ const transport = nodemailer.createTransport({
       })
       .catch((err) => console.log(err));
   };
+
+  module.exports.sendForgetPasswordConfirmation = (email, confirmationCode) => {
+    transport
+      .sendMail({
+        from: user,
+        to: email,
+        subject: "Password Reset Link",
+        html: `<h1>Forget Password</h1>
+          <p>Click the following link to reset your password</p>
+          <a href=https://rojgar-com.herokuapp.com/forget/password/update/${confirmationCode}> Click here</a>
+          </div>`,
+      })
+      .catch((err) => console.log(err));
+  };
