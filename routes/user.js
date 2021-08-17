@@ -127,10 +127,12 @@ router.put("/forget/password/",function(req,res){
 router.put("/forget/password/update/:token",function(req,res){
     const token = req.params.token;
     const password = req.body.password;
-    User.findOneAndUpdate({confirmation:token},{password:password}).then(function(result){
-        res.status(200).json({message:"forget Password Update successful",success : true})
-    }).catch(function(err){
-        res.status(401).json({message:err, success:false})
+    bcrypt.hash(password,10,function(err,hash){
+        User.findOneAndUpdate({confirmation:token},{password:hash}).then(function(result){
+            res.status(200).json({message:"forget Password Update successful",success : true})
+        }).catch(function(err){
+            res.status(401).json({message:err, success:false})
+        })
     })
 })
 
