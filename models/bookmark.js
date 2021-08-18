@@ -8,6 +8,10 @@ const Bookmark = mongoose.model('Bookmark',{
         type : String,
         reduired : true
     },
+    workid:{
+        type:String,
+        reduired : true
+    },
     proficiency : {
         type : String,
         reduired : true,

@@ -5,11 +5,13 @@ const router = express.Router();
 router.post("/bookmark/post/:id",function(req,res){
     const id = req.params.id;
     const worktitle = req.body.worktitle;
+    const workid = req.body.workid;
     const proficiency = req.body.proficiency;
     const esttime = req.body.esttime;
     const paytype = req.body.paytype;
     const bookmark = new Bookmark({
         userid:id,
+        workid:workid,
         worktitle:worktitle,
         proficiency:proficiency,
         esttime:esttime,
