@@ -9,10 +9,6 @@ const JobApply = mongoose.model('JobApply',{
         type:String,
         required:true
     },
-    professionid:{
-        type:String,
-        required:true
-    },
     application:{
         type:String,
         required:true

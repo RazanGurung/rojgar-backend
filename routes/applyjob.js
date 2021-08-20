@@ -5,7 +5,6 @@ const router = express.Router();
 router.post("/apply/job",function(req,res){
     const userid = req.body.userid;
     const workid = req.body.workid;
-    const professionid = req.body.professionid;
     const application = req.body.application;
     const profile = req.body.profile;
     const username = req.body.username;
@@ -14,7 +13,6 @@ router.post("/apply/job",function(req,res){
     const applyjob = new ApplyJob({
         userid:userid,
         workid:workid,
-        professionid:professionid,
         application:application,
         profile:profile,
         username:username,
