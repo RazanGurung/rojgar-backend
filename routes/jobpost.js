@@ -82,6 +82,18 @@ router.put("/post/update/:id",function(req,res){
     })
 });
 
+router.put("/post/update/status/:id",function(req,res){
+    const id = req.params.id;
+    const status = req.params.status;
+    JobPost.updateOne({_id:id},{
+        status:"hired"
+    }).then(function(data){
+        res.status(200).json({message : "Job Post Updated",success:true})
+    }).catch(function(err){
+        res.status(500).json({message : err,success:false})
+    })
+});
+
 router.delete("/post/delete/:id",function(req,res){
     const id = req.params.id;
 
