@@ -29,7 +29,7 @@ router.post("/job/post/:id",function(req,res){
 });
 
 router.get("/all/job/post",function(req,res){    
-    JobPost.find()
+    JobPost.find({status: {$not:{$eq:"hired"}}})
     .then(function(result){
         res.status(200).json({success:true,data:result});
     })
@@ -84,7 +84,6 @@ router.put("/post/update/:id",function(req,res){
 
 router.put("/post/update/status/:id",function(req,res){
     const id = req.params.id;
-    const status = req.params.status;
     JobPost.updateOne({_id:id},{
         status:"hired"
     }).then(function(data){
