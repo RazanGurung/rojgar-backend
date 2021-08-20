@@ -5,6 +5,7 @@ const router = express.Router();
 router.post("/apply/job",function(req,res){
     const userid = req.body.userid;
     const workid = req.body.workid;
+    const professionid = req.body.professionid;
     const application = req.body.application;
     const profile = req.body.profile;
     const username = req.body.username;
@@ -13,6 +14,7 @@ router.post("/apply/job",function(req,res){
     const applyjob = new ApplyJob({
         userid:userid,
         workid:workid,
+        professionid:professionid,
         application:application,
         profile:profile,
         username:username,
@@ -26,15 +28,6 @@ router.post("/apply/job",function(req,res){
     .catch(function(err){
         res.status(500).json({message : err,success:false})
     });
-});
-
-router.get("/view/single/application/:id",function(req,res){
-    const id = req.params.id;
-    ApplyJob.find({_id:id}).then(data=>{
-        res.status(200).json({data:data})
-    }).catch(err=>{
-        res.status(500).json({message:"cannot get"})
-    })
 });
 
 router.get("/view/application/:id",function(req,res){
