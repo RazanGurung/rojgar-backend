@@ -84,8 +84,9 @@ router.put("/post/update/:id",function(req,res){
 
 router.put("/post/update/status/:id",function(req,res){
     const id = req.params.id;
+    const status = req.body.status;
     JobPost.updateOne({_id:id},{
-        status:"hired"
+        status:status
     }).then(function(data){
         res.status(200).json({message : "Job Post Updated",success:true})
     }).catch(function(err){
