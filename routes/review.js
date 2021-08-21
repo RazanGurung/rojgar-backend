@@ -4,12 +4,14 @@ const router = express.Router();
 
 router.post("/review/professional/:id", function(req,res){
     const id = req.params.id;
+    const userid = req.body.userid;
     const username = req.body.username;
     const profile = req.body.profile;
     const rating = req.body.rating;
     const review = req.body.review;
     const reviewPost = new Review({
         professionalid:id,
+        userid : userid,
         username:username,
         profile:profile,
         rating:rating,

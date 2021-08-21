@@ -5,6 +5,10 @@ const Review = mongoose.model('Review',{
         type:String,
         required:true
     },
+    userid:{
+        type:String,
+        required:true
+    },
     username:{
         type:String,
         required:true
