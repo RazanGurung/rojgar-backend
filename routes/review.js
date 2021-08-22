@@ -28,6 +28,15 @@ router.post("/review/professional/:id", function(req,res){
     });
 });
 
+router.put('/review/update/:id',function(req,res){
+    const id = req.params.id;
+    Review.updateOne({_id:id},{review:review}).then(data =>{
+        res.status(200).json({message:"successful"});
+    }).catch(err=>{
+        res.status(500).json({message:err});
+    })
+})
+
 router.get('/review/:id',function(req,res){
     const id = req.params.id;
     Review.find({workid:id}).then(data =>{
