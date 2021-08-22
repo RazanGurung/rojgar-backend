@@ -37,4 +37,13 @@ router.get('/review/:id',function(req,res){
     })
 })
 
+router.delete('/delete/review/:id',function(req,res){
+    const id = req.params.id;
+    Review.delete({_id:id}).then(data=>{
+        res.status(200).json({message:"deleted Successfully"})
+    }).catch(err=>{
+        res.status(500).json({message:"error deleting"})
+    })
+})
+
 module.exports = router
