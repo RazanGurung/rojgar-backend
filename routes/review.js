@@ -49,6 +49,15 @@ router.get('/review/:id',function(req,res){
     })
 })
 
+router.get('/review/professional/:id',function(req,res){
+    const id = req.params.id;
+    Review.find({professionalid:id}).then(data =>{
+        res.status(200).json({data:data});
+    }).catch(err=>{
+        res.status(500).json({message:err});
+    })
+})
+
 router.delete('/delete/review/:id',function(req,res){
     const id = req.params.id;
     Review.deleteOne({_id:id}).then(data=>{
