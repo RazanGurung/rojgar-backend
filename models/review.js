@@ -26,7 +26,8 @@ const Review = mongoose.model('Review',{
         required:true
     },
     rating:{
-        type:Number
+        type:Number,
+        default:0
     }
 });
 module.exports = Review; 
