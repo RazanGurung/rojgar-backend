@@ -31,8 +31,10 @@ router.post("/review/professional/:id", function(req,res){
 router.put('/review/update/:id',function(req,res){
     const id = req.params.id;
     const review = req.body.review;
+    const rating = req.body.rating;
     Review.updateOne({_id:id},{
-        review:review
+        review:review,
+        rating:rating
     }).then(function(data){
         res.status(200).json({message : "Review Updated",success:true})
     }).catch(function(err){
