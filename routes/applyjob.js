@@ -37,6 +37,15 @@ router.get("/view/application/:id",function(req,res){
     })
 });
 
+router.get("/my/application/:id",function(req,res){
+    const id = req.params.id;
+    ApplyJob.find({userid:id}).then(data=>{
+        res.status(200).json({data:data})
+    }).catch(err=>{
+        res.status(500).json({message:"cannot get"})
+    })
+});
+
 router.put("/applicaiton/status/:id",function(req,res){
     const id = req.params.id;
     const status = req.body.status;
