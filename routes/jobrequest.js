@@ -6,11 +6,15 @@ router.post("/job/request/:id",function(req,res){
     const id = req.params.id;
     const professionalid = req.body.professionalid;
     const worktitle = req.body.worktitle;
+    const username = req.body.username;
+    const profile = req.body.profile;
     const workdescription = req.body.workdescription;
     const paytype = req.body.paytype;
     const jobrequest = new JobRequest({
         userid:id,
         professionalid:professionalid,
+        username:username,
+        profile:profile,
         worktitle:worktitle,
         workdescription:workdescription,
         paytype:paytype,

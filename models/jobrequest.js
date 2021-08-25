@@ -7,6 +7,14 @@ const JobRequest = mongoose.model('JobRequest',{
     professionalid:{
         type:String
     },
+    username:{
+        type:String,
+        required : true
+    },
+    profile:{
+        type:String,
+        required : true
+    },
     worktitle : {
         type : String,
         reduired : true
