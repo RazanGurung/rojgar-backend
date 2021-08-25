@@ -60,4 +60,27 @@ router.put("/applicaiton/status/:id",function(req,res){
     })
 })
 
+router.put("/applicaiton/proposal/:id",function(req,res){
+    const id = req.params.id;
+    const application = req.body.application;
+    ApplyJob.findOneAndUpdate({_id:id},{application:application})
+    .then(function(result){
+        res.status(200).json({message:"successful"});
+    })
+    .catch(function(err){
+        res.status(401).json({message : err,success:false})
+    })
+})
+
+router.delete("/application/delete/:id",function(req,res){
+    const id = req.params.id;
+    ApplyJob.deleteOne({_id:id})
+    .then(function(result){
+        res.status(200).json({message : "Application Deleted Successfully",success:true})
+    })
+    .catch(function(err){
+        res.status(400).json({message : "Application deleting account", success:false})
+    })  
+});
+
 module.exports = router
