@@ -9,6 +9,10 @@ const JobApply = mongoose.model('JobApply',{
         type:String,
         required:true
     },
+    worktitle:{
+        type:String,
+        required:true
+    },
     application:{
         type:String,
         required:true
