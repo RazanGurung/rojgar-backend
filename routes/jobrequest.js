@@ -65,12 +65,15 @@ router.put("/update/status/:id",function(req,res){
 
 router.delete("/delete/request/:id",function(req,res){
     const id = req.params.id;
-    JobRequest.deleteOne({_id:id}).then(res=>{
-        res.status(200).json({message:"Deleted Successfully"});
-    }).catch(err=>{
-        res.status(500).json({message:"error deleting request"})
+    JobRequest.deleteOne({_id:id})
+    .then(function(result){
+        res.status(200).json({message : "Request Deleted Successfully",success:true})
     })
-})
+    .catch(function(err){
+        res.status(400).json({message : "Request deleting account", success:false})
+    })  
+
+});
 
 
 module.exports = router
