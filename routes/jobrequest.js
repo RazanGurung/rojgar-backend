@@ -68,9 +68,12 @@ router.put("/update/request/:id",function(req,res){
     const worktitle = req.body.worktitle;
     const workdescription = req.body.workdescription;
     const paytype = req.body.paytype;
-    JobRequest.updateOne({_id:id},{worktitle:worktitle,workdescription:workdescription,paytype:paytype})
+    JobRequest.updateOne({_id:id},{
+        worktitle:worktitle,
+        workdescription:workdescription,
+        paytype:paytype,
+    })
     .then(function(result){
-        console.log(status)
         res.status(200).json({message:"successful"});
     })
     .catch(function(err){
