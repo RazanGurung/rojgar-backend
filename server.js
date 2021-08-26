@@ -11,6 +11,7 @@ const applyjobrouter = require('./routes/applyjob.js');
 const requestjobrouter = require('./routes/jobrequest.js');
 const bookmarkrouter = require('./routes/bookmark');
 const reviewrouter = require('./routes/review');
+const adminrouter = require('./routes/admin');
 const cors = require('cors');
 
 env.config({
@@ -35,6 +36,7 @@ app.use(applyjobrouter);
 app.use(requestjobrouter);
 app.use(bookmarkrouter);
 app.use(reviewrouter);
+app.use(adminrouter);
 
 app.get('/',function(req,res){
     res.send("Welcome to Rojgar.com")
