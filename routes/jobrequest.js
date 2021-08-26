@@ -63,6 +63,21 @@ router.put("/update/status/:id",function(req,res){
     })
 })
 
+router.put("/update/request/:id",function(req,res){
+    const id = req.params.id;
+    const worktitle = req.body.worktitle;
+    const workdescription = req.body.workdescription;
+    const paytype = req.body.paytype;
+    JobRequest.findOneAndUpdate({_id:id},{worktitle:worktitle,workdescription:workdescription,paytype:paytype})
+    .then(function(result){
+        console.log(status)
+        res.status(200).json({message:"successful"});
+    })
+    .catch(function(err){
+        res.status(401).json({message : err,success:false})
+    })
+})
+
 router.delete("/delete/request/:id",function(req,res){
     const id = req.params.id;
     JobRequest.deleteOne({_id:id})
