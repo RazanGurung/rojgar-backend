@@ -63,7 +63,7 @@ router.put("/update/status/:id",function(req,res){
     })
 })
 
-router.get("/delete/request/:id",function(req,res){
+router.delete("/delete/request/:id",function(req,res){
     const id = req.params.id;
     JobRequest.deleteOne({_id:id}).then(res=>{
         res.status(200).json({message:"Deleted Successfully"});
