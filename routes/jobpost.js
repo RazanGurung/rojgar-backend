@@ -28,6 +28,16 @@ router.post("/job/post/:id",function(req,res){
     });
 });
 
+router.get("/all/job",function(req,res){    
+    JobPost.find()
+    .then(function(result){
+        res.status(200).json({success:true,data:result});
+    })
+    .catch(function(err){
+        res.status(401).json({message : err,success:false})
+    })
+});
+
 router.get("/all/job/post",function(req,res){    
     JobPost.find({status: {$not:{$eq:"hired"}}})
     .then(function(result){
