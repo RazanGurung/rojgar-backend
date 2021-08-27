@@ -28,6 +28,16 @@ router.post("/job/request/:id",function(req,res){
     });
 });
 
+router.get("/all/invite",function(req,res){
+    JobRequest.find()
+    .then(function(result){
+        res.status(200).json({data:result});
+    })
+    .catch(function(err){
+        res.status(401).json({message : err,success:false})
+    })
+})
+
 router.get("/job/invite/:id",function(req,res){
     const id = req.params.id;
     JobRequest.find({status: {$not:{$eq:"false"}},professionalid:id})
