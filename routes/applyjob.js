@@ -30,6 +30,14 @@ router.post("/apply/job",function(req,res){
     });
 });
 
+router.get("/all/application",function(req,res){
+    ApplyJob.find().then(data=>{
+        res.status(200).json({data:data})
+    }).catch(err=>{
+        res.status(500).json({message:"cannot get"})
+    })
+});
+
 router.get("/view/application/:id",function(req,res){
     const id = req.params.id;
     ApplyJob.find({status: {$not:{$eq:"false"}},workid:id}).then(data=>{
