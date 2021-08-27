@@ -42,6 +42,14 @@ router.put('/review/update/:id',function(req,res){
     })
 })
 
+router.get('/all/review',function(req,res){
+    Review.find().then(data =>{
+        res.status(200).json({data:data});
+    }).catch(err=>{
+        res.status(500).json({message:err});
+    })
+})
+
 router.get('/review/:id',function(req,res){
     const id = req.params.id;
     Review.find({workid:id}).then(data =>{
