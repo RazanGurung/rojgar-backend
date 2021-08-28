@@ -27,27 +27,42 @@ router.post("/user/register",[
             const gender = req.body.gender;
             const usertype = req.body.usertype;
             const password = req.body.password;
-            bcrypt.genSalt(10, (err,salt)=>{
-                bcrypt.hash(password,salt,function(err,hash){
-                    const user = new User({
-                        firstname:firstname,
-                        lastname:lastname,
-                        email:email,
-                        phone:phone,
-                        usertype:usertype,
-                        gender:gender,
-                        confirmation:token,
-                        password:hash
-                    });
-                    user.save()
-                    .then(function(result){
-                        res.status(201).json({message : "User Registration Successful",success:true})
-                        nodemailer.sendConfirmationEmail(firstname,email,token);
+
+            User.findOne({email:email}).then(data=>{
+                if(data != null){
+                    return res.status(500).json("Already has an account on this email.")
+                }
+                User.findOne({phone:phone}).then(data=>{
+                    if(data != null){
+                        return res.status(500).json("Already has an account on this Number.")
+                    }
+                    bcrypt.genSalt(10, (err,salt)=>{
+                        bcrypt.hash(password,salt,function(err,hash){
+                            const user = new User({
+                                firstname:firstname,
+                                lastname:lastname,
+                                email:email,
+                                phone:phone,
+                                usertype:usertype,
+                                gender:gender,
+                                confirmation:token,
+                                password:hash
+                            });
+                            user.save()
+                            .then(function(result){
+                                res.status(201).json({message : "User Registration Successful",success:true})
+                                nodemailer.sendConfirmationEmail(firstname,email,token);
+                            })
+                            .catch(function(err){
+                                res.status(500).json({message : err,success:false})
+                            });
+                        })
                     })
-                    .catch(function(err){
-                        res.status(500).json({message : err,success:false})
-                    });
+                }).catch(err=>{
+                    res.status(500).json({message:"cannot find"})
                 })
+            }).catch(err=>{
+                res.status(500).json({message:"cannot find"})
             })
         }
 });
