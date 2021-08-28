@@ -126,15 +126,6 @@ const User = mongoose.model('User',{
             default : "Add Job Description"
         }
     },
-    certificates:{
-        certificateimg:{
-            type : String,
-            default:"noImage.jpg"
-        },
-        title : {
-            type : String
-        }
-    },
     confirmation:{
         type:String,
         required:true
