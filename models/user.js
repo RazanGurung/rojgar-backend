@@ -21,16 +21,13 @@ const User = mongoose.model('User',{
     },
     address:{
         country:{
-            type : String,
-            default:"country"
+            type : String
         },
         city : {
-            type : String,
-            default:"city"
+            type : String
         },
         street : {
-            type : String,
-            default:"street"
+            type : String
         }
     },
     payrate:{
@@ -64,16 +61,13 @@ const User = mongoose.model('User',{
     },
     education:{
         university:{
-            type : String,
-            default:"university or college"
+            type : String
         },
         faculty:{
-            type : String,
-            default:"faculty or field"
+            type : String
         },
         degree:{
-            type : String,
-            default:"degree or certificate"
+            type : String
         },
         startdate:{
             type:Date,
@@ -84,46 +78,38 @@ const User = mongoose.model('User',{
             format: '%Y-%m-%d'
         }
     },
+    job:{
+        title:{
+            type : String
+        },
+        description:{
+            type : String
+        }
+    },
     language:{
         primarylanguage:{
             language:{
-                type:String,
-                default:"language"
+                type:String
             },
             difficulty:{
-                type:String,
-                default:"proficiency"
+                type:String
             }
         },
         secondarylanguage:{
             language:{
-                type:String,
-                default:"language"
+                type:String
             },
             difficulty:{
-                type:String,
-                default:"proficiency"
+                type:String
             }
         },
         tertiarylanguage:{
             language:{
-                type:String,
-                default:"language"
+                type:String
             },
             difficulty:{
-                type:String,
-                default:"proficiency"
+                type:String
             }
-        }
-    },
-    job:{
-        title:{
-            type : String,
-            default : "Add Job Title"
-        },
-        description:{
-            type : String,
-            default : "Add Job Description"
         }
     },
     confirmation:{
