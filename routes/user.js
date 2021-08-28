@@ -323,4 +323,15 @@ router.delete("/user/delete/:id",function(req,res){
 
 });
 
+router.delete("/user/delete/unverified",function(req,res){
+    User.delete({emailverified:false})
+    .then(function(result){
+        res.status(200).json({message : "Accouted Deleted Successfully",success:true})
+    })
+    .catch(function(err){
+        res.status(400).json({message : "error deleting account", success:false})
+    })  
+
+});
+
 module.exports = router
