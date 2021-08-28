@@ -30,11 +30,11 @@ router.post("/user/register",[
 
             User.findOne({email:email}).then(data=>{
                 if(data != null){
-                    return res.status(500).json("email")
+                    return res.status(500).json({message:"email"})
                 }
                 User.findOne({phone:phone}).then(data=>{
                     if(data != null){
-                        return res.status(500).json("Number")
+                        return res.status(500).json({message:"number"})
                     }
                     bcrypt.genSalt(10, (err,salt)=>{
                         bcrypt.hash(password,salt,function(err,hash){
