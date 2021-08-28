@@ -229,7 +229,7 @@ router.put("/language/update/:id",function(req,res){
     const sdifficulty = req.body.sdifficulty;
     const tdifficulty = req.body.tdifficulty;
 
-    var language = [{primarylanguage:{language:planguage, difficulty:pdifficulty}, secondarylanguage:{language:slanguage, difficulty:sdifficulty},tertiarylanguage:{language:tlanguage, difficulty:tdifficulty}}]
+    var language = {primarylanguage:{language:planguage, difficulty:pdifficulty}, secondarylanguage:{language:slanguage, difficulty:sdifficulty},tertiarylanguage:{language:tlanguage, difficulty:tdifficulty}}
     User.updateOne({_id:id},{
         $set : {language:language}
     }).then(function(data){
