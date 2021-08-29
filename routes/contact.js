@@ -25,7 +25,7 @@ router.post("/contact/us",function(req,res){
 });
 
 router.get("/contact/view",function(req,res){
-    Contact.find({}).then(res=>{
+    Contact.find().then(res=>{
         res.status(200).json({data:res})
     }).catch(err=>{
         res.status(500).json({message:"Counldn't find any data."})
