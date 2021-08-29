@@ -12,6 +12,7 @@ const requestjobrouter = require('./routes/jobrequest.js');
 const bookmarkrouter = require('./routes/bookmark');
 const reviewrouter = require('./routes/review');
 const adminrouter = require('./routes/admin');
+const contactrouter = require('./routes/contact');
 const cors = require('cors');
 
 env.config({
@@ -37,6 +38,7 @@ app.use(requestjobrouter);
 app.use(bookmarkrouter);
 app.use(reviewrouter);
 app.use(adminrouter);
+app.use(contactrouter);
 
 app.get('/',function(req,res){
     res.send("Welcome to Rojgar.com")
