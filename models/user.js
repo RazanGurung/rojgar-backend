@@ -21,17 +21,21 @@ const User = mongoose.model('User',{
     },
     address:{
         country:{
-            type : String
+            type : String,
+            default:""
         },
         city : {
-            type : String
+            type : String,
+            default:""
         },
         street : {
-            type : String
+            type : String,
+            default:""
         }
     },
     payrate:{
-        type : String
+        type : String,
+        default:""
     },
     gender:{
         type : String,
@@ -57,58 +61,72 @@ const User = mongoose.model('User',{
     },
     dob:{
         type:Date,
-        format: '%Y-%m-%d'
+        format: '%Y-%m-%d',
+        default:""
     },
     education:{
         university:{
-            type : String
+            type : String,
+            default:""
         },
         faculty:{
-            type : String
+            type : String,
+            default:""
         },
         degree:{
-            type : String
+            type : String,
+            default:""
         },
         startdate:{
             type:Date,
-            format: '%Y-%m-%d'
+            format: '%Y-%m-%d',
+            default:""
         },
         enddate:{
             type:Date,
-            format: '%Y-%m-%d'
+            format: '%Y-%m-%d',
+            default:""
         }
     },
     job:{
         title:{
-            type : String
+            type : String,
+            default:""
         },
         description:{
-            type : String
+            type : String,
+            default:""
         }
     },
     language:{
         primarylanguage:{
             language:{
-                type:String
+                type:String,
+                default:""
             },
             difficulty:{
-                type:String
+                type:String,
+                default:""
             }
         },
         secondarylanguage:{
             language:{
-                type:String
+                type:String,
+                default:""
             },
             difficulty:{
-                type:String
+                type:String,
+                default:""
             }
         },
         tertiarylanguage:{
             language:{
-                type:String
+                type:String,
+                default:""
             },
             difficulty:{
-                type:String
+                type:String,
+                default:""
             }
         }
     },
