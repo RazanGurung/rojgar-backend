@@ -17,11 +17,12 @@ describe('User Schema Test', () =>{
         const user = {
             'firstname':"test",
             'lastname':"test",
-            'email':'test@gmail.com',
+            'email':'testsdfgsvd@gmail.com',
             "usertype":"user",
             "gender":"male",
             'phone':9812345678,
             'password':'test123',
+            'confirmation':"dsgfias;gigwe9grwwaesfhioarshdfouags"
         } 
         return User.create(user)
             .then((pro_ret) => {
@@ -29,20 +30,20 @@ describe('User Schema Test', () =>{
         });
     });
 });
-// describe('User Schema Test', () =>{
-//     it('Update User', async () =>{
-//         return User.findOneAndUpdate({
-//             _id:Object('607ec9ad5c50920d4cac6fcc')
-//         },{$set : {firstname:'test'}})
-//            .then((user)=>{
-//             expect(user.firstname).toEqual('test')
-//         })
-//     })
-// });
-// describe('User Schema Test', () =>{
-//     it('User Delete', async()=>{
+describe('User Schema Test', () =>{
+    it('Update User', async () =>{
+        return User.findOneAndUpdate({
+            _id:Object('6135dbcb0fccf43054cb8468')
+        },{$set : {firstname:'test'}})
+           .then((user)=>{
+            expect(user.firstname).toEqual('test')
+        })
+    })
+});
+describe('User Schema Test', () =>{
+    it('User Delete', async()=>{
 
-//         const status = await User.deleteMany();
-//         expect(status.ok).toBe(1);
-//     })
-// });
+        const status = await User.deleteOne({_id:'6135dbcb0fccf43054cb8468'});
+        expect(status.ok).toBe(1);
+    })
+});
